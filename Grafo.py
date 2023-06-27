@@ -4,6 +4,7 @@ class Graph:
     def __init__(self):
         self.professores = []
         self.escolas = []
+        self.estavel = False
         
     def addProfessor(self, id, comp, pref):
         newVertex = Professor(id, comp, pref)
@@ -24,5 +25,8 @@ class Escola:
         self.id = id
         self.vagas = vagas
         self.professores = []
+    
+    def addProfessor(self, professor):
+        self.professores.append(professor)
 
         
