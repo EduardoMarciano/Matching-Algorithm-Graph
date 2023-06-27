@@ -19,6 +19,17 @@ class Professor:
         self.id = id
         self.competencias = comp
         self.preferencias = pref
+        self.escola = None
+
+    def addEscola(self, escola):
+        self.escola = escola
+
+    def compEscola(self, escola):
+        atual = preferencias.index(self.escola.id)
+        nova  = preferencias.index(escola.id)
+        if nova < atual:
+            self.escola = escola
+            self.escola.addProfessor(self)
 
 class Escola:
     def __init__(self, id, vagas):
@@ -28,5 +39,9 @@ class Escola:
     
     def addProfessor(self, professor):
         self.professores.append(professor)
+    
+    def SubProfessor(self):
+        self.professores = sorted(self.professores,  key=lambda professor: professor.competencias, reverse=True)
+        self.professores.pop()
 
         

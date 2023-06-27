@@ -63,17 +63,31 @@ for escola in grafo.escolas:
                     #A escola não tem professores?
                     if len(escola.professores) == 0:
                         escola.addProfessor(professor)
-
+                        escola.vagas.remove(vaga)
+                        escola.vagas.insert(0, professor.competencias)
 
                     #O professor é mais capacitado que o atual?
-                    elif professor.competencias > vaga:
-                        escola.SubProfessor(professor)
+                    elif professor.competencias >= vaga:
+                        #O professor já está numa escola?
                         
-                    #O professor quer mais a escola?
-                    elif professor.competencias == vaga:
+                        if professor.escola != None:
+                            #O professor quer trocar de escola?
+                            professor.CompEscola(escola)
+
+                        else:
+                            escola.addProfessor(professor)
+                            escola.vagas.remove(vaga)
+                            escola.vagas.insert(0, professor.competencias)
+
+                            if len(escola.professores) > len(escola.vagas):
+                                escola.SubProfessor()
+                                
+                            professor.addEscola(escola)
+
                         
-
-
 
 for escola in grafo.escolas:
-    print(escola.professores)
+    print(escola.id, end =" ")
+    for p in escola.professores:
+        print(p.id, p.competencias, end = " ")
+    print()
